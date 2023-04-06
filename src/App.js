@@ -1,12 +1,24 @@
-import React from "react";
+import React, { Component } from "react";
+import ResumeHeader from './Components/ResumeHeader'
+
+class App extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      
+    }
+  }
 
 
-function App() {
-  return (
-    <>
-    
-    </>
-  )
+
+  render() {
+    return (
+      <>
+      <ResumeHeader info={this.state.headerInfo}/>
+      </>
+    )
+  }
 }
 
 export default App;
