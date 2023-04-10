@@ -7,26 +7,24 @@ export default class ResumeHeader extends Component {
 
     this.state = {
       isEditing: true,
-      info: {
-        name: '',
-        city: '',
-        email: '', 
-        phone: '',
-      },
-      submitInfo: {
-        submitName: '',
-        submitCity: '',
-        submitEmail: '',
-        submitPhone: '',
-      }
+      name: '',
+      address: '',
+      email: '', 
+      phone: '',
+      submitName: '',
+      submitAddress: '',
+      submitEmail: '',
+      submitPhone: '',
     }
     this.toggleEdit = this.toggleEdit.bind(this);
-    this.handleNameInput = this.handleNameInput.bind(this)
-    this.handleCityInput = this.handleCityInput.bind(this)
-    this.submitInputs = this.submitInputs.bind(this)
+    this.handleNameInput = this.handleNameInput.bind(this);
+    this.handleAddressInput = this.handleAddressInput.bind(this);
+    this.handleEmailInput = this.handleEmailInput.bind(this);
+    this.handlePhoneInput = this.handlePhoneInput.bind(this);
+    this.submitInputs = this.submitInputs.bind(this);
   }
 
-  toggleEdit(e) {
+  toggleEdit() {
     this.setState({
       isEditing: !this.state.isEditing,
     })
@@ -34,29 +32,35 @@ export default class ResumeHeader extends Component {
 
   handleNameInput(e) {
     this.setState({
-      info: {
         name: e.target.value
-      }
     })
   }
 
-  handleCityInput(e) {
+  handleAddressInput(e) {
     this.setState({
-      info: {
-        city: e.target.value
-      }
+      address: e.target.value
+    })
+  }
+
+  handleEmailInput(e) {
+    this.setState({
+      email: e.target.value
+    })
+  }
+
+  handlePhoneInput(e) {
+    this.setState({
+      phone: e.target.value
     })
   }
 
   submitInputs(e) {
     e.preventDefault()
     this.setState({ 
-      submitInfo: {
-        submitName: this.state.info.name,
-        submitCity: this.state.info.city,
-        submitEmail: this.state.info.email,
-        submitPhone: this.state.info.phone,
-      }
+      submitName: this.state.name,
+      submitAddress: this.state.address,
+      submitEmail: this.state.email,
+      submitPhone: this.state.phone,
     })
     this.toggleEdit();
   }
@@ -64,7 +68,7 @@ export default class ResumeHeader extends Component {
   render(){
 
     return(
-        <div className="resume-header">
+        <div className="resume-header-form">
         {this.state.isEditing 
           ? 
           <form>
@@ -72,16 +76,32 @@ export default class ResumeHeader extends Component {
               <input 
                 type="text"
                 id="name" 
-                value={this.state.info.name}
+                value={this.state.name}
                 onChange={this.handleNameInput}>
               </input>
             </label>
-            <label htmlFor='city'>City:
+            <label htmlFor='address'>Address:
               <input
                 type='text'
-                id="city"
-                value={this.state.info.city}
-                onChange={this.handleCityInput}>
+                id="address"
+                value={this.state.city}
+                onChange={this.handleAddressInput}>
+              </input>
+            </label>  
+            <label htmlFor="email">Email:
+              <input 
+                type='email'
+                id='email'
+                value={this.state.email}
+                onChange={this.handleEmailInput}>
+              </input>
+            </label>
+            <label htmlFor="phone">Phone Number:
+              <input
+                type="tel"
+                id="phone"
+                value={this.state.phone}
+                onChange={this.handlePhoneInput}>
               </input>
             </label>
             <button type="submit" onClick={this.submitInputs}
@@ -89,11 +109,13 @@ export default class ResumeHeader extends Component {
           </form>
           : 
           <div className="resume-header">
-            <h1>{this.state.submitInfo.submitName}</h1>
-            <button onClick={this.toggleEdit}>Edit</button>
+            <h1>{this.state.submitName}</h1>
+            <p>{this.state.submitAddress}</p>
+            <p>{this.state.submitEmail}</p>
+            <p>{this.state.submitPhone}</p>
+            <button className="no-print" onClick={this.toggleEdit}>Edit</button>
           </div>
           }
-
         </div>
     ) 
   }
