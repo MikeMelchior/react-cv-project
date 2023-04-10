@@ -5,12 +5,17 @@
 }
 
 :root {
+    --gray: #f0f0f0;
 
 }
 
 * {
     margin: 0;
     box-sizing: border-box;
+}
+
+#root {
+    min-width: 800px;
 }
 
 body,
@@ -28,37 +33,66 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 5px;
+    background-color: var(--gray);
 }
 
-.resume-header h1 {
-    margin: 15px;
+    .resume-header h1 {
+        margin: 15px;
+    }
+
+
+.resume-header-form,
+.experience {
+    padding: 1.5rem;
 }
 
-.resume-header-form {
-    width: 800px;
-    margin: 15px auto;
-}
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        border: 1px solid;
+        border-radius: 5px;
+        padding: 15px;
+    }
 
-.resume-header-form label {
-    width: 60%;
-    display: flex;
-    justify-content: space-between;
-}
+    label {
+        width: 60%;
+        display: flex;
+        justify-content: space-between;
+    }
 
-.resume-header-form input {
-    width: 70%;
-}
+    input {
+        width: 70%;
+    }
 
-.resume-header-form form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    border: 1px solid;
-    border-radius: 5px;
-    padding: 15px;
-}
+    button {
+        padding: 4px 60px;
+    }
 
-.resume-header-form button {
-    padding: 4px 60px;
+.experience {
+    /*  */
 }
+    .experience h2 {
+        width: 100%;
+        border-bottom: 1px solid;
+        margin-bottom: 10px;
+    }
+
+    .experience p {
+        padding: 0 15px;
+        display: grid;
+        place-self: center;
+    }
+    
+
+    input[type='date'] {
+        width: 30%;
+    }
+
+    textarea {
+        min-height: 50px;
+        max-height: 150px;
+        min-width: 60%;
+        max-width: 60%;
+    }
