@@ -75,16 +75,10 @@ body {
 }
     .experience h2 {
         width: 100%;
+        padding-bottom: 5px;
         border-bottom: 1px solid;
         margin-bottom: 10px;
     }
-
-    .experience p {
-        padding: 0 15px;
-        display: grid;
-        place-self: center;
-    }
-    
 
     input[type='date'] {
         width: 30%;
@@ -96,3 +90,37 @@ body {
         min-width: 60%;
         max-width: 60%;
     }
+
+.experience-container {
+    position: relative;
+    padding: 1rem 1rem 2rem 1rem;
+    display: grid;
+    grid: 50px 1fr / 1fr 1fr;
+}
+
+    .experience-container p {
+        padding: 0 15px;
+    }
+
+    .years {
+        align-self: start;
+        justify-self: end;
+    }
+
+    p.description {
+        grid-area: 2 / 1 / 3 / 3;
+        padding: 1rem 4rem 1rem 2rem;
+    }
+
+    div.buttons {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: fit-content;
+        display: flex;
+        gap: 30px;
+    }
+        div.buttons button {
+            width: 100px;
+            padding: 3px;
+        }
