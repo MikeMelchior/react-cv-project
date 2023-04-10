@@ -25,9 +25,9 @@ export default class ResumeHeader extends Component {
   }
 
   toggleEdit() {
-    this.setState({
-      isEditing: !this.state.isEditing,
-    })
+    this.setState(state => ({
+      isEditing: !state.isEditing,
+    }))
   }
 
   handleNameInput(e) {
@@ -56,12 +56,12 @@ export default class ResumeHeader extends Component {
 
   submitInputs(e) {
     e.preventDefault()
-    this.setState({ 
-      submitName: this.state.name,
-      submitAddress: this.state.address,
-      submitEmail: this.state.email,
-      submitPhone: this.state.phone,
-    })
+    this.setState(state => ({ 
+      submitName: state.name,
+      submitAddress: state.address,
+      submitEmail: state.email,
+      submitPhone: state.phone,
+    }))
     this.toggleEdit();
   }
  
@@ -97,7 +97,7 @@ export default class ResumeHeader extends Component {
                   onChange={this.handleEmailInput}>
                 </input>
               </label>
-              <label htmlFor="phone">Phone Number:
+              <label htmlFor="phone">Phone:
                 <input
                   type="tel"
                   id="phone"
