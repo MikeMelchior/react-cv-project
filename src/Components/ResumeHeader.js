@@ -32,7 +32,7 @@ export default class ResumeHeader extends Component {
 
   handleNameInput(e) {
     this.setState({
-        name: e.target.value
+      name: e.target.value
     })
   }
 
@@ -68,45 +68,47 @@ export default class ResumeHeader extends Component {
   render(){
 
     return(
-        <div className="resume-header-form">
+        <>
         {this.state.isEditing 
           ? 
-          <form>
-            <label htmlFor="name">Name:
-              <input 
-                type="text"
-                id="name" 
-                value={this.state.name}
-                onChange={this.handleNameInput}>
-              </input>
-            </label>
-            <label htmlFor='address'>Address:
-              <input
-                type='text'
-                id="address"
-                value={this.state.city}
-                onChange={this.handleAddressInput}>
-              </input>
-            </label>  
-            <label htmlFor="email">Email:
-              <input 
-                type='email'
-                id='email'
-                value={this.state.email}
-                onChange={this.handleEmailInput}>
-              </input>
-            </label>
-            <label htmlFor="phone">Phone Number:
-              <input
-                type="tel"
-                id="phone"
-                value={this.state.phone}
-                onChange={this.handlePhoneInput}>
-              </input>
-            </label>
-            <button type="submit" onClick={this.submitInputs}
-            >Submit</button>
-          </form>
+          <div className="resume-header-form">
+            <form>
+              <label htmlFor="name">Name:
+                <input 
+                  type="text"
+                  id="name" 
+                  value={this.state.name}
+                  onChange={this.handleNameInput}>
+                </input>
+              </label>
+              <label htmlFor='address'>Address:
+                <input
+                  type='text'
+                  id="address"
+                  value={this.state.address}
+                  onChange={this.handleAddressInput}>
+                </input>
+              </label>  
+              <label htmlFor="email">Email:
+                <input 
+                  type='email'
+                  id='email'
+                  value={this.state.email}
+                  onChange={this.handleEmailInput}>
+                </input>
+              </label>
+              <label htmlFor="phone">Phone Number:
+                <input
+                  type="tel"
+                  id="phone"
+                  value={this.state.phone}
+                  onChange={this.handlePhoneInput}>
+                </input>
+              </label>
+              <button type="submit" onClick={this.submitInputs}
+              >Submit</button>
+            </form>
+          </div>
           : 
           <div className="resume-header">
             <h1>{this.state.submitName}</h1>
@@ -116,7 +118,7 @@ export default class ResumeHeader extends Component {
             <button className="no-print" onClick={this.toggleEdit}>Edit</button>
           </div>
           }
-        </div>
+        </>
     ) 
   }
 }
