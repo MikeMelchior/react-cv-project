@@ -1,4 +1,6 @@
+import { logRoles } from '@testing-library/react';
 import React, { Component } from 'react'
+import uniqid from 'uniqid'
 
 export default class Experience extends Component {
   constructor(props) {
@@ -6,20 +8,23 @@ export default class Experience extends Component {
 
     this.state = {
       showForm: false,
-      company: '',
-      title: '', 
-      startYear: '',
-      endYear: '',
-      description: '',
-      experience: [],
+      experience: {
+        company: '',
+        title: '', 
+        startYear: '',
+        endYear: '',
+        description: '',
+        id: uniqid(),
+      },
+      experiences: [],
     }
 
     this.toggleForm = this.toggleForm.bind(this);
     this.handleCompany = this.handleCompany.bind(this);
     this.handleTitle = this.handleTitle.bind(this);
-    this.handleStartYear = this.HandleStartYear.bind(this);
+    this.handleStartYear = this.handleStartYear.bind(this);
     this.handleEndYear = this.handleEndYear.bind(this);
-    this.handleDescription = this.HandleDescription.bind(this);
+    this.handleDescription = this.handleDescription.bind(this);
     this.submitExperience = this.submitExperience.bind(this);
   }
 
@@ -31,57 +36,143 @@ export default class Experience extends Component {
 
   handleCompany(e) {
     this.setState({
-      company: e.target.value
+      experience: {
+        company: e.target.value,
+        title: this.state.experience.title, 
+        startYear: this.state.experience.startYear,
+        endYear: this.state.experience.endYear,
+        description: this.state.experience.description,
+        id: this.state.experience.id
+      }
     })
   }
 
   handleTitle(e) {
     this.setState({
-      title: e.target.value
+      experience: {
+        company: this.state.experience.company,
+        title: e.target.value, 
+        startYear: this.state.experience.startYear,
+        endYear: this.state.experience.endYear,
+        description: this.state.experience.description,
+        id: this.state.experience.id
+      }
     })
   }
 
-  HandleStartYear(e) {
+  handleStartYear(e) {
     this.setState({
-      startYear: e.target.value
+      experience: {
+        company: this.state.experience.company,
+        title: this.state.experience.title, 
+        startYear: e.target.value,
+        endYear: this.state.experience.endYear,
+        description: this.state.experience.description,
+        id: this.state.experience.id
+      }
     })
   }
 
   handleEndYear(e) {
     this.setState({
-      endYear: e.target.value
+      experience: {
+        company: this.state.experience.company,
+        title: this.state.experience.title, 
+        startYear: this.state.experience.startYear,
+        endYear: e.target.value,
+        description: this.state.experience.description,
+        id: this.state.experience.id
+      }
     })
   }
 
-  HandleDescription(e) {
+  handleDescription(e) {
     this.setState({
-      description: e.target.value
+      experience: {
+        company: this.state.experience.company,
+        title: this.state.experience.title, 
+        startYear: this.state.experience.startYear,
+        endYear: this.state.experience.endYear,
+        description: e.target.value,
+        id: this.state.experience.id
+      }
     })
   }
 
   submitExperience(e) {
     e.preventDefault();
 
+    let current = null;
+    current = this.state.experiences.find(exp => exp.id === this.state.experience.id);
+    if (current) {
+      this.removeExperience(current);
+    }
 
+    if (this.state.experience.endYear === '') {
+      this.setState({
+        experience: {
+          company: this.state.experience.company,
+          title: this.state.experience.title, 
+          startYear: this.state.experience.startYear,
+          endYear: 'Current',
+          description: this.state.experience.description,
+          id: this.state.experience.id
+        }
+      })
+    }
 
-    this.setState({
-      company: '',
-      title: '',
-      startYear: '',
-      description: '',
-    })
-
+    this.setState(state => ({
+      experiences : [...state.experiences, state.experience],
+      experience: {
+        company: '',
+        title: '', 
+        startYear: '',
+        endYear: '',
+        description: '',
+        id: uniqid()
+      },
+    }))
+    this.sortExps();
     this.toggleForm();
   }
 
+  
 
+  removeExperience(exp) {
+    let newExps = this.state.experiences.filter(experience => experience.id !== exp.id)
+    this.setState({
+      experiences: newExps
+    })
+  }
 
+  editExperience(exp) {
+    
+    this.setState({
+      experience: {
+        company: exp.company,
+        title: exp.title, 
+        startYear: exp.startYear,
+        endYear: exp.endYear,
+        description: exp.description,
+        id: exp.id
+      },
+      showForm: true
+    })
+
+  }
+
+  sortExps() {
+    this.setState(state => ({
+      experiences: state.experiences.sort((exp1, exp2) => {
+        return exp1.endYear < exp2.endYear ? 1 : -1
+      })
+    }))
+  }
 
 
   render() {
-
     return(
-        <>
+      <>
         <div className='experience'>
           <h2>Experience</h2>
           {this.state.showForm
@@ -89,14 +180,14 @@ export default class Experience extends Component {
               <label htmlFor='company'>Company: 
                 <input 
                 type="text"
-                value={this.state.company}
+                value={this.state.experience.company}
                 onChange={this.handleCompany}
                 />
               </label>
               <label htmlFor="title">Title: 
                 <input 
                 type="text"
-                value={this.state.title}
+                value={this.state.experience.title}
                 onChange={this.handleTitle}
                  />
               </label>
@@ -104,14 +195,14 @@ export default class Experience extends Component {
                 <input 
                 type="date"
                 id='startyear'
-                value={this.state.startYear}
-                onChange={this.HandleStartYear} 
+                value={this.state.experience.startYear}
+                onChange={this.handleStartYear} 
                 />
                 <p>to</p>
                 <input 
                 type="date"
                 id='endyear'
-                value={this.state.endYear}
+                value={this.state.experience.endYear}
                 onChange={this.handleEndYear} />
               </label>
               <label htmlFor="description">Description: 
@@ -119,20 +210,36 @@ export default class Experience extends Component {
                 <textarea 
                 name="description" 
                 id="description"
-                value={this.state.description}
-                onChange={this.HandleDescription}
+                value={this.state.experience.description}
+                onChange={this.handleDescription}
                 ></textarea>
               
-            <button onClick={this.submitExperience}>Submit</button>
+            <button className='no-print' onClick={this.submitExperience}>Submit</button>
           </form>
 
           : null
           }
-          <button onClick={this.toggleForm}>Add Experience</button>
+          {this.state.experiences.map(experience => {
+            return (
+              <div key={experience.id} className='experience-container'>
+                <p ><strong>{experience.company}</strong> <br/> <em>{experience.title}</em></p>
+                <p className='years'>{experience.startYear} - {experience.endYear}</p>
+                <p className='description'>{experience.description}</p>
+                <div className="buttons no-print">
+                  <button onClick={() => {
+                    this.editExperience(experience)
+                  }}>edit</button>
+                  <button onClick={() => {
+                    this.removeExperience(experience)
+                  }}>remove</button>
+                </div>
+                
+              </div>
+            )
+          })}
+          <button className='no-print' onClick={this.toggleForm}>Add Experience</button>
         </div>
-        
-        
-        </>
+      </>
     )
   }
 }
