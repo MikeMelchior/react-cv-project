@@ -42,7 +42,8 @@ body {
 
 
 .resume-header-form,
-.experience {
+.experience,
+.education {
     padding: 1.5rem;
 }
 
@@ -73,7 +74,7 @@ body {
 .experience {
     /*  */
 }
-    .experience h2 {
+    h2 {
         width: 100%;
         padding-bottom: 5px;
         border-bottom: 1px solid;
@@ -91,7 +92,8 @@ body {
         max-width: 60%;
     }
 
-.experience-container {
+.experience-container,
+.education-container {
     position: relative;
     padding: 1rem 1rem 2rem 1rem;
     display: grid;
@@ -124,3 +126,4 @@ body {
             width: 100px;
             padding: 3px;
         }
+
