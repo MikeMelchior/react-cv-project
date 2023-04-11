@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/react-cv-project/static/css/main.a9d89dbd.css",
+    "main.js": "/react-cv-project/static/js/main.a74eda37.js",
+    "index.html": "/react-cv-project/index.html",
+    "main.a9d89dbd.css.map": "/react-cv-project/static/css/main.a9d89dbd.css.map",
+    "main.a74eda37.js.map": "/react-cv-project/static/js/main.a74eda37.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a9d89dbd.css",
+    "static/js/main.a74eda37.js"
+  ]
+}
