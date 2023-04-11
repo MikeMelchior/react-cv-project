@@ -1,5 +1,7 @@
 import React, { Component } from "react";
+import Experience from "./Components/Experience";
 import ResumeHeader from './Components/ResumeHeader'
+import Education from "./Components/Education";
 
 class App extends Component {
   constructor(props) {
@@ -11,11 +13,12 @@ class App extends Component {
   }
 
 
-
   render() {
     return (
       <>
       <ResumeHeader info={this.state.headerInfo}/>
+      <Experience />
+      <Education />
       </>
     )
   }
