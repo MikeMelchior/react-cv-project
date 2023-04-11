@@ -173,7 +173,7 @@ export default class Experience extends Component {
   render() {
     return(
       <>
-        <div className='experience'>
+        <div className='experience no-print'>
           <h2>Experience</h2>
           {this.state.showForm
           ? <form>
@@ -237,7 +237,7 @@ export default class Experience extends Component {
               </div>
             )
           })}
-          <button className='no-print' onClick={this.toggleForm}>Add Experience</button>
+          <button className='no-print add' onClick={this.toggleForm}>Add Experience</button>
         </div>
       </>
     )

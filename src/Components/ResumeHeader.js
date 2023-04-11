@@ -71,7 +71,9 @@ export default class ResumeHeader extends Component {
         <>
         {this.state.isEditing 
           ? 
-          <div className="resume-header-form">
+          
+          <div className="resume-header-form no-print">
+            <h2>Header</h2>
             <form>
               <label htmlFor="name">Name:
                 <input 
