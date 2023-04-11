@@ -1,4 +1,3 @@
-import { logRoles } from '@testing-library/react';
 import React, { Component } from 'react'
 import uniqid from 'uniqid'
 
@@ -28,97 +27,66 @@ export default class Experience extends Component {
     this.submitExperience = this.submitExperience.bind(this);
   }
 
-  toggleForm(e) {
+  toggleForm() {
     this.setState(state => ({
       showForm: !state.showForm
     }))
   }
 
   handleCompany(e) {
-    this.setState({
+    this.setState(state => ({
       experience: {
-        company: e.target.value,
-        title: this.state.experience.title, 
-        startYear: this.state.experience.startYear,
-        endYear: this.state.experience.endYear,
-        description: this.state.experience.description,
-        id: this.state.experience.id
+        ...state.experience, company: e.target.value
       }
-    })
+    }))
   }
 
   handleTitle(e) {
-    this.setState({
+    this.setState(state => ({
       experience: {
-        company: this.state.experience.company,
-        title: e.target.value, 
-        startYear: this.state.experience.startYear,
-        endYear: this.state.experience.endYear,
-        description: this.state.experience.description,
-        id: this.state.experience.id
+        ...state.experience, title: e.target.value
       }
-    })
+    }))
   }
 
   handleStartYear(e) {
-    this.setState({
+    this.setState(state => ({
       experience: {
-        company: this.state.experience.company,
-        title: this.state.experience.title, 
-        startYear: e.target.value,
-        endYear: this.state.experience.endYear,
-        description: this.state.experience.description,
-        id: this.state.experience.id
+        ...state.experience, startYear: e.target.value
       }
-    })
+    }))
   }
 
   handleEndYear(e) {
-    this.setState({
+    this.setState(state => ({
       experience: {
-        company: this.state.experience.company,
-        title: this.state.experience.title, 
-        startYear: this.state.experience.startYear,
-        endYear: e.target.value,
-        description: this.state.experience.description,
-        id: this.state.experience.id
+        ...state.experience, endYear: e.target.value
       }
-    })
+    }))
   }
 
   handleDescription(e) {
-    this.setState({
+    this.setState(state => ({
       experience: {
-        company: this.state.experience.company,
-        title: this.state.experience.title, 
-        startYear: this.state.experience.startYear,
-        endYear: this.state.experience.endYear,
-        description: e.target.value,
-        id: this.state.experience.id
+        ...state.experience, description: e.target.value
       }
-    })
+    }))
   }
 
   submitExperience(e) {
     e.preventDefault();
 
-    let current = null;
-    current = this.state.experiences.find(exp => exp.id === this.state.experience.id);
+    let current = this.state.experiences.find(exp => exp.id === this.state.experience.id);
     if (current) {
       this.removeExperience(current);
     }
 
     if (this.state.experience.endYear === '') {
-      this.setState({
+      this.setState(state => ({
         experience: {
-          company: this.state.experience.company,
-          title: this.state.experience.title, 
-          startYear: this.state.experience.startYear,
-          endYear: 'Current',
-          description: this.state.experience.description,
-          id: this.state.experience.id
+          ...state.experience, endYear: 'Current'
         }
-      })
+      }))
     }
 
     this.setState(state => ({
@@ -136,8 +104,6 @@ export default class Experience extends Component {
     this.toggleForm();
   }
 
-  
-
   removeExperience(exp) {
     let newExps = this.state.experiences.filter(experience => experience.id !== exp.id)
     this.setState({
@@ -146,7 +112,6 @@ export default class Experience extends Component {
   }
 
   editExperience(exp) {
-    
     this.setState({
       experience: {
         company: exp.company,
@@ -158,7 +123,6 @@ export default class Experience extends Component {
       },
       showForm: true
     })
-
   }
 
   sortExps() {
@@ -173,10 +137,10 @@ export default class Experience extends Component {
   render() {
     return(
       <>
-        <div className='experience no-print'>
+        <div className='experience'>
           <h2>Experience</h2>
           {this.state.showForm
-          ? <form>
+          ? <form className='no-print'>
               <label htmlFor='company'>Company: 
                 <input 
                 type="text"
