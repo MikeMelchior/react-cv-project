@@ -25,6 +25,8 @@ export default class Education extends Component {
     this.handleEndYear = this.handleEndYear.bind(this);
     this.handleDescription = this.handleDescription.bind(this);
     this.submitEducation = this.submitEducation.bind(this);
+    this.removeEducation = this.removeEducation.bind(this);
+    this.editEducation = this.editEducation.bind(this);
   }
 
   toggleForm() {
@@ -75,6 +77,20 @@ export default class Education extends Component {
 
   submitEducation(e) {
     e.preventDefault();
+
+    let current = this.state.educations.find(edu => edu.id === this.state.education.id);
+    if(current) {
+      this.removeEducation(current);
+    }
+
+    if(this.state.education.endYear === '') {
+      this.setState(state => ({
+        education: {
+          ...state.education, endYear: 'Current'
+        }
+      }))
+    }
+
     this.setState(state => ({
       educations: [...state.educations, state.education],
       education: {
@@ -87,18 +103,51 @@ export default class Education extends Component {
       }
     }))
 
+    this.sortEdus();
     this.toggleForm();
   }
+
+  removeEducation(edu) {
+    let tempEdus = this.state.educations.filter(item => {
+      return item.id !== edu.id
+    })
+    this.setState({
+      educations: tempEdus
+    })
+  }
+
+  editEducation(edu) {
+    this.setState({
+      education: {
+        id: edu.id,
+        school: edu.school,
+        certificate: edu.certificate,
+        startYear: edu.startYear,
+        endYear: edu.endYear,
+        description: edu.description,
+      },
+      showForm: true,
+    })
+  }
+
+  sortEdus() {
+    this.setState(state => ({
+      educations: state.educations.sort((edu1, edu2) => {
+        return edu1.endYear < edu2.endYear ? 1 : -1;
+      })
+    }))
+  }
+
 
   render() {
     let education = this.state.education
     return(
       <>
-        <div className="education no-print">
+        <div className="education">
           <h2>Education</h2>
           {this.state.showForm
           ?
-          <form>
+          <form className="no-print">
             <label htmlFor='school'>School: 
               <input 
               id="school"
@@ -107,7 +156,7 @@ export default class Education extends Component {
               onChange={this.handleSchool}
               />
             </label>
-            <label htmlFor="city">Certificate: 
+            <label htmlFor="certificate">Certificate: 
               <input 
               id="certificate"
               type="text"
@@ -145,10 +194,18 @@ export default class Education extends Component {
           }
           {this.state.educations.map(edu => {
             return (
-              <div key={edu.id}>
-                <p>{edu.school}</p>
-                <p>{edu.certificate}</p>
-
+              <div key={edu.id} className="education-container">
+                <p><strong>{edu.school}</strong> <br/> {edu.certificate} </p>
+                <p className="years">{edu.startYear} - {edu.endYear}</p>
+                <p className="description">{edu.description}</p>
+                <div className="buttons no-print">
+                  <button onClick={() => {
+                    this.editEducation(edu)
+                  }}>edit</button>
+                  <button onClick={() => {
+                    this.removeEducation(edu)
+                  }}>remove</button>
+                </div>
               </div>
             )
           })}
